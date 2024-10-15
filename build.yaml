@@ -1,0 +1,24 @@
+targets:
+  $default:
+    builders:
+      base_class_gen|baseClassGeneratorBuilder:
+        enabled: true
+      base_class_gen|sqlModelGen:
+         enabled: true
+
+builders:
+  baseClassGeneratorBuilder:
+    import: 'package:base_class_gen/generator/generators.dart'
+    builder_factories: [ 'baseClassGeneratorBuilder' ]
+    applies_builders: [ "source_gen|combining_builder" ]
+    build_extensions: { ".dart": [ "d.g.part" ] }
+    auto_apply: dependents
+    build_to: cache
+
+  sqlModelGen:
+    import: 'package:base_class_gen/generator/generators.dart'
+    builder_factories: [ 'sqlModelGen' ]
+    applies_builders: [ "source_gen|combining_builder" ]
+    build_extensions: { ".dart": [ "b.g.part" ] }
+    auto_apply: dependents
+    build_to: cache
